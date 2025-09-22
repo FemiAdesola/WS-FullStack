@@ -92,7 +92,7 @@ else { ... }                             // 404 page
 
 ## 📌 Notes
 
-* All routes are currently hardcoded in `server.js`.
+* All routes are currently hardcoded in `helloroutes.js and server.js`.
 * HTML is embedded directly in `response.end()` using template literals.
 
 ---
