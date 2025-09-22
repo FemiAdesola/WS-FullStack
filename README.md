@@ -7,11 +7,12 @@ This workshop demonstrates a **simple Node.js web server** that responds with di
 ## 📁 Project Structure
 
 ```
-WS1-FULLSTACK/
+Root/
 │
-├── helloroutes.js   # helloroutes.js server with multiple routes
-├── helloworld.js   # helloworld.js for console output of helloworld file
-├── server.js        # server.js server with single routes
+├──  WS0/
+│    ├── helloworld.js      # Simple Node.js script for console output "Hello World"
+│    ├── helloroutes.js     # Node.js server with multiple routes (homepage, about, contact, helloworld)
+│    └── server.js          # Node.js server with single route 
 └── README.md        # Project documentation
 ```
 
@@ -23,7 +24,7 @@ WS1-FULLSTACK/
 
 ```bash
 git clone https://github.com/YOUR_USERNAME/R0314-MEAN.git
-cd WS1-FULLSTACK
+cd WS0
 ```
 
 2. **Run the server** using Node.js:
