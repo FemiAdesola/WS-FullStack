@@ -1,0 +1,12 @@
+body {
+  font-family: sans-serif;
+}
+
+body.home {
+  background-color: #f0f8ff;
+}
+
+/* About page background */
+body.about {
+  background-color: #fff0f5; /* light pink */
+}
