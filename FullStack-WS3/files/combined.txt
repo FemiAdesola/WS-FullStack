@@ -1,0 +1,6 @@
+TOP TEXT
+Welcome to WS-3!
+
+Second file text
+
+END TEXT

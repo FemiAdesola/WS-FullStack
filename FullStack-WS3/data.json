@@ -1,0 +1,12 @@
+[
+    {
+        "name": "Jane Roe",
+        "company": "Acme",
+        "address": "1 Main St"
+    },
+    {
+        "name": "Sam Lee",
+        "company": "Globex",
+        "address": "2 High St"
+    }
+]

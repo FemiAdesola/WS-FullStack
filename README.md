@@ -305,3 +305,34 @@ Then open your browser and go to:
 ---
 </details>
 
+# FullStack Workshop 3 — Node.js File System & HTTP Basics
+
+> This workshop demonstrates how to work with files, folders, JSON, and simple HTTP servers in Node.js.  
+It is all about learn **synchronous vs asynchronous I/O**, **basic web routing**, and **processing JSON data** locally and from APIs.  
+
+<details>
+<summary>👉Click to expand and see the details</summary>
+
++ Each example helps illustrate how Node.js handles file operations,
+asynchronous behavior, and lightweight web serving.
+
+## Run Scripts
++  Use Node.js to run each file:
+```bash
+  node a1-read-sync.js
+  node a1-read-async.js
+  node a2-two-files-ordered.mjs
+  node a3-combine-prepend-append.mjs
+  node a4-folder-file.js
+  node b1-routes.js
+  node c1-json-process.js
+  node d2-axios.js
+```
+## Summary
+- It shows practice on :
+  * Reading and writing files with both sync and async methods
+  * Creating and modifying directories and files dynamically
+  * Building small HTTP servers and routes
+  * Working with local and remote JSON data
+
+</details>
