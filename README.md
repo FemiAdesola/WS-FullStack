@@ -305,6 +305,9 @@ Then open your browser and go to:
 ---
 </details>
 
+<br>
+<br>
+
 # FullStack Workshop 3 — Node.js File System & HTTP Basics
 
 > This workshop demonstrates how to work with files, folders, JSON, and simple HTTP servers in Node.js.  
@@ -334,5 +337,113 @@ asynchronous behavior, and lightweight web serving.
   * Creating and modifying directories and files dynamically
   * Building small HTTP servers and routes
   * Working with local and remote JSON data
+
+</details>
+
+<br>
+<br>
+
+# WS3-client and WS3-API (Part B – Express API with CORS, React (Vite + Axios), and Deploy)
+
+> This workshop demonstrates a full-stack setup using:  
+
+<details>
+<summary>👉Click to expand and see the details</summary>
+
+
+
+- **Express** — Fast backend for APIs  
+- **CORS** — Allows browser clients to call the API  
+- **React + Vite** — Front-end client using Axios for HTTP requests  
+- **Render** — Easy hosting for both API and client  
+
+---
+
+## Workshop Overview
+
+There are two parts:
+
+1. **Backend (API)** – Node.js + Express server with CORS enabled.  
+2. **Frontend (Client)** – React app created with Vite that fetches and posts data using Axios.  
+
+---
+
+## Build the Express API
+
+### Setup Steps
+- Create a project folder and initialize npm.  
+- Install required packages: `express` and `cors`.  
+- Create a server file and define API routes.  
+- Add a start script in `package.json` to run the server.  
+
+### Testing the API
+Once the API is running, open your browser and test the following endpoints:
+
+- `http://localhost:5000/api/hello` → Should return a simple message.  
+- `http://localhost:5000/api/todos` → Should return an array of todos.  
+
+---
+
+## Create the React Client (Vite + Axios)
+
+### Setup Steps
+- Use Vite to scaffold a new React app.  
+- Install `axios` for API requests.  
+- Create an `.env` file to store your API base URL (e.g., `VITE_API_URL=http://localhost:4000`).  
+- Replace the default App component with one that fetches and posts todos using Axios.  
+
+---
+
+## Run the Project
+
+### Start the API
+In the `ws3-api` folder:
+```bash
+  npm start
+```
+
+### Start the Client
+In the `ws3-client` folder:
+```bash
+  npm run dev
+```
+Then open the URL printed by Vite (usually `http://localhost:5173`).
+
+It is important that both the **API** and **client** are running simultaneously.  
+
+---
+
+## Usage
+
+1. Open your browser at `http://localhost:5173`.  
+2. The app will fetch data from the Express API.  
+3. A greeting message from the backend and a list of todos wil show up.  
+4. Add a new todo using the input field and click **Add** — it will update automatically.  
+5. Keep both the API (`http://localhost:4000`) and client running for full functionality.  
+
+---
+
+## Deploy on Render (Optional)
+
+1. Push both folders (`ws3-api` and `ws3-client`) to GitHub.  
+2. Create a **Web Service** on [Render.com](https://render.com/) for the API.  
+   - Build command: `npm install`  
+   - Start command: `npm start`
+3. Create another Render project for the React client.  
+   - Build command: `npm install && npm run build`  
+   - Publish directory: `dist`
+4. Update the `.env` in your client with your deployed API URL.  
+
+---
+
+## Summary
+
+| Part | Tech | Description |
+|------|------|--------------|
+| Backend | Express + CORS | Simple JSON API for todos |
+| Frontend | React (Vite) + Axios | Fetch and add todos via API |
+| Deployment | Render | Host both projects online |
+
+---
 
 </details>
