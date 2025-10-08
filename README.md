@@ -215,6 +215,9 @@ This project is from **Workshop 2** — building a basic file server with Node.j
 
 > A simple **Node.js + Express** web app that browse and search movies from the [OMDb API](https://www.omdbapi.com/).  
 The app uses **Bootstrap (via jsDelivr CDN)** for styling — all in a single `movies.js` file.  
+
+## **View the live of movie result website link [here](https://ws-fullstack.onrender.com/)**
+
 <details>
 <summary>👉Click to expand and see the details</summary>
 
