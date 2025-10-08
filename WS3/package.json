@@ -1,0 +1,16 @@
+{
+  "name": "ws3",
+  "version": "1.0.0",
+  "main": "movies.js",
+  "scripts": {
+    "start": "node movies.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "axios": "^1.12.2",
+    "express": "^5.1.0"
+  }
+}
