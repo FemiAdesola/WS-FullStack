@@ -276,11 +276,16 @@ Then open your browser and go to:
 ---
 
 ## Usage
-- The page will load movies for **“Star Wars”** by default.  
+- The page will load movies for **“Star Wars”** by default.
+
+![FrontPage](/WS3/img/FrontPage.png)
+
 - To search for something else:
   1. Type a title like **Batman** in the search bar.  
   2. Press **Enter** or click **Search**.  
   3. The page will reload with new results.
+
+![Batmane](/WS3/img/Batman.png)
 
 ---
 
