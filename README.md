@@ -345,6 +345,9 @@ asynchronous behavior, and lightweight web serving.
 
 # WS3-client and WS3-API (Part B – Express API with CORS, React (Vite + Axios), and Deploy)
 
+>  **View the live result website link for WS3-client [here](https://ws3-client.onrender.com)** \
+> **View the live result website link for WS3-api [here](https://ws3-api.onrender.com)** 
+
 > This workshop demonstrates a full-stack setup using:  
 
 <details>
@@ -366,6 +369,8 @@ There are two parts:
 1. **Backend (API)** – Node.js + Express server with CORS enabled.  
 2. **Frontend (Client)** – React app created with Vite that fetches and posts data using Axios.  
 
+![ws3-client](/img/ws3-client.png)
+
 ---
 
 ## Build the Express API
@@ -379,8 +384,10 @@ There are two parts:
 ### Testing the API
 Once the API is running, open your browser and test the following endpoints:
 
-- `http://localhost:5000/api/hello` → Should return a simple message.  
-- `http://localhost:5000/api/todos` → Should return an array of todos.  
+- [https://ws3-api.onrender.com/api/hello](https://ws3-api.onrender.com/api/hello) → Should return a simple message. 
+
+![ws3-api](/img/ws3-api.png) 
+- [https://ws3-api.onrender.com/api/todos](https://ws3-api.onrender.com/api/todos) → Should return an array of todos.  
 
 ---
 
@@ -389,7 +396,7 @@ Once the API is running, open your browser and test the following endpoints:
 ### Setup Steps
 - Use Vite to scaffold a new React app.  
 - Install `axios` for API requests.  
-- Create an `.env` file to store your API base URL (e.g., `VITE_API_URL=http://localhost:4000`).  
+- Create an `.env` file to store your API base URL (e.g., `VITE_API_URL=https://ws3-api.onrender.com`).  
 - Replace the default App component with one that fetches and posts todos using Axios.  
 
 ---
