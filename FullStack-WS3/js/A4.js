@@ -1,5 +1,5 @@
 const fs = require("fs");
-const dir = "../../new-data";
+const dir = "../new-data";
 if (!fs.existsSync(dir)) fs.mkdirSync(dir);
 const file = dir + "/note.txt";
 if (!fs.existsSync(file)) fs.writeFileSync(file, "Hello from WS-3!");
