@@ -1,7 +1,7 @@
 const http = require("http");
 const fs = require("fs");
 
-let data = JSON.parse(fs.readFileSync("./data.json","utf8"));
+let data = JSON.parse(fs.readFileSync("../../data.json","utf8"));
 data.push({ name:"John Doe", company:"Initrode", address:"3 River Rd" });
 console.table(data);
 data.pop();

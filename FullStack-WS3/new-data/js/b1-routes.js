@@ -7,12 +7,12 @@ const server = http.createServer((req, res) => {
     return res.end("Hello from first homepage");
   }
   if (req.url === "/front") {
-    const html = fs.readFileSync("./frontpage.html");
+    const html = fs.readFileSync("../html/frontpage.html");
     res.writeHead(200, { "Content-Type": "text/html" });
     return res.end(html);
   }
   if (req.url === "/contact") {
-    const html = fs.readFileSync("./contact.html");
+    const html = fs.readFileSync("../html/contact.html");
     res.writeHead(200, { "Content-Type": "text/html" });
     return res.end(html);
   }
