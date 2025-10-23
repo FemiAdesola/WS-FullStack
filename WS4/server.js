@@ -36,7 +36,7 @@ router.get("/hello/:name", (req, res) => {
 router.get("/search", async (req, res) => {
   const q = (req.query.q || "phone").trim();
   const src = (req.query.src || "demo").toLowerCase();
-  const limit = parseInt(req.query.limit) || 6;
+  const limit = parseInt(req.query.limit) || 3;
   const showAll = req.query.showAll === "true";
 
   try {

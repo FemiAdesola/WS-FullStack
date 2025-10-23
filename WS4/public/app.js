@@ -73,7 +73,7 @@ const runSearchIfNeeded = async () => {
   const params = new URLSearchParams(location.hash.slice(1));
   const q = params.get("q");
   const src = params.get("src") || "demo";
-  const limit = params.get("limit") || 6;
+  const limit = params.get("limit") || 3;
   const showAll = params.get("showAll") === "true";
 
   if (!q) return;
