@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>WS4 Express Demo</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <header>
+    <h1>WS4: Express + API Demo</h1>
+    <p>Explore routes like <a href="/api/time" target="_blank">/api/time</a> or search below.</p>
+  </header>
+
+  <main>
+    <section class="search-section">
+      <h2>Search Products or GitHub Repositories</h2>
+      <form id="searchForm" action="/search" method="post">
+        <input 
+          type="text" 
+          name="q" 
+          placeholder="e.g. phone, laptop, react, node" 
+          required 
+        />
+
+        <div class="radio-group">
+          <label>
+            <input type="radio" name="src" value="demo" checked />
+            Demo (DummyJSON)
+          </label>
+          <label>
+            <input type="radio" name="src" value="github" />
+            GitHub (rate limited)
+          </label>
+        </div>
+
+        <button type="submit" class="btn">Search</button>
+      </form>
+    </section>
+
+    <!-- Results Section as card format-->
+    <section id="result" class="results">
+      <p class="placeholder">Your search results will appear here...</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>Search method built with Express & Axios</p>
+  </footer>
+
+  <script src="/app.js"></script>
+</body>
+</html>
+
