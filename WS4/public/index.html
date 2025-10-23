@@ -15,10 +15,10 @@
   <main>
     <section class="search-section">
       <h2>Search Products or GitHub Repositories</h2>
-      <form id="searchForm" action="/search" method="post">
+      <form id="searchForm">
         <input 
           type="text" 
-          name="q" 
+          id="queryInput"
           placeholder="e.g. phone, laptop, react, node" 
           required 
         />
@@ -33,22 +33,30 @@
             GitHub (rate limited)
           </label>
         </div>
+        <!-- Add new options -->
+        <div class="radio-group">
+          <label for="limit">Limit:</label>
+          <select id="limitSelect">
+            <option value="5">5</option>
+            <option value="6" selected>6</option>
+            <option value="10">10</option>
+            <option value="20">20</option>
+          </select>
+        </div>
 
         <button type="submit" class="btn">Search</button>
       </form>
     </section>
-
-    <!-- Results Section as card format-->
+     <!-- Results Section as card format-->
     <section id="result" class="results">
       <p class="placeholder">Your search results will appear here...</p>
     </section>
   </main>
 
   <footer>
-    <p>Search method built with Express & Axios</p>
+    <p>Search built with Express & Axios</p>
   </footer>
 
   <script src="/app.js"></script>
 </body>
 </html>
-

@@ -1,80 +1,113 @@
-/**
- * app.js for just to handle client-side search logic and renders results as styled cards.
- */
+// DOM Document Object Model
+const form = document.getElementById("searchForm");
+const resultDiv = document.getElementById("result");
 
-// Parse URL hash parameters (#q=term&src=demo)
-const getHashParams = () => {
-  const params = new URLSearchParams(location.hash.slice(1));
-  return {
-    q: params.get("q"),
-    src: params.get("src") || "demo"
-  };
-};
-
+/*
+========================
+  RENDER
+========================
+*/
 // For rendering results in different ways
 const renderResults = (data) => {
-  const resultDiv = document.getElementById("result");
-
-  // For showing error message
   if (data.error) {
-    resultDiv.innerHTML = `<p class="error">❌ ${data.error}</p>`;
+    resultDiv.innerHTML = `<p class="error">❌ ${data.error}</p>`; // For showing error message
     return;
   }
 
-  // For Hhandling empty results with the result is not available
-  if (!data.top5 || data.top5.length === 0) {
-    resultDiv.innerHTML = `<p>No results found for your search.</p>`;
+  // For handling empty results with the result is not available
+  if (!data.items || data.items.length === 0) {
+    resultDiv.innerHTML = `<p>No results found.</p>`;
     return;
   }
 
   // Different rendering for GitHub or DemoJSON
-  if (data.source === "github") {
-    resultDiv.innerHTML = `
-      <h3>🔍 Top ${data.top5.length} GitHub Repositories (Total: ${data.total})</h3>
-      <div class="card-grid">
-        ${data.top5.map(repo => `
-          <div class="card">
-            <h3><a href="${repo.url}" target="_blank">${repo.name}</a></h3>
-            <p>${repo.description || "No description provided."}</p>
-            <p><strong>⭐ Stars:</strong> ${repo.stars}</p>
-          </div>
-        `).join("")}
-      </div>
-    `;
-  } else {
-    resultDiv.innerHTML = `
-      <h3>🛒 Top ${data.top5.length} Products (Total: ${data.total})</h3>
-      <div class="card-grid">
-        ${data.top5.map(p => `
-          <div class="card">
-            <img src="${p.thumbnail}" alt="${p.title}" />
-            <h3>${p.title}</h3>
-            <p><strong>Brand:</strong> ${p.brand}</p>
-            <p><strong>Price:</strong> $${p.price}</p>
-            <p><small>⭐ Rating: ${p.rating}</small></p>
-          </div>
-        `).join("")}
-      </div>
-    `;
+  const isGitHub = data.source === "github";
+  const cards = data.items
+    .map((item) =>
+      isGitHub
+        ? `
+        <div class="card">
+          <h3><a href="${item.url}" target="_blank">${item.name}</a></h3>
+          <p>${item.description}</p>
+          <p><strong>⭐ Stars:</strong> ${item.stars}</p>
+        </div>`
+        : `
+        <div class="card">
+          <img src="${item.thumbnail}" alt="${item.title}" />
+          <h3>${item.title}</h3>
+          <p><strong>Brand:</strong> ${item.brand}</p>
+          <p><strong>Price:</strong> $${item.price}</p>
+          <p><small>⭐ Rating: ${item.rating}</small></p>
+        </div>`
+    )
+    .join("");
+
+  // Show more/less toggle
+  const toggleBtn = data.total > data.items.length
+    ? `<button id="toggleBtn" class="btn-secondary">${data.showAll ? "Show Less" : "Show All"}</button>`
+    : "";
+
+  resultDiv.innerHTML = `
+    <h3>${isGitHub ? "🔍 GitHub Repositories" : "Products"} — Showing ${data.items.length} of ${data.total}</h3>
+    <div class="card-grid">${cards}</div>
+    <div class="center">${toggleBtn}</div>
+  `;
+
+  const toggleButton = document.getElementById("toggleBtn");
+  if (toggleButton) {
+    toggleButton.addEventListener("click", () => {
+      const params = new URLSearchParams(location.hash.slice(1));
+      params.set("showAll", data.showAll ? "false" : "true");
+      location.hash = params.toString();
+    });
   }
 };
 
-// Run search based on hash
+/*
+========================
+  FETCH RESULTS
+========================
+*/
+// This place hand way to fetch data
 const runSearchIfNeeded = async () => {
-  const { q, src } = getHashParams();
+  const params = new URLSearchParams(location.hash.slice(1));
+  const q = params.get("q");
+  const src = params.get("src") || "demo";
+  const limit = params.get("limit") || 6;
+  const showAll = params.get("showAll") === "true";
+
   if (!q) return;
 
-  const resultDiv = document.getElementById("result");
   resultDiv.innerHTML = `<p>Loading results for "<strong>${q}</strong>"...</p>`;
 
   try {
-    const response = await fetch(`/api/search?q=${encodeURIComponent(q)}&src=${encodeURIComponent(src)}`);
-    const data = await response.json();
+    const res = await fetch(
+      `/api/search?q=${encodeURIComponent(q)}&src=${src}&limit=${limit}&showAll=${showAll}`
+    );
+    const data = await res.json();
     renderResults(data);
   } catch (err) {
-    renderResults({ error: err.message || "Something went wrong." });
+    renderResults({ error: err.message });
   }
 };
+
+/*
+========================
+  HANDLE FORM SUBMIT
+========================
+*/  
+//This place handle way to submt the form 
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const q = document.getElementById("queryInput").value.trim();
+  const src = form.querySelector("input[name='src']:checked").value;
+  const limit = document.getElementById("limitSelect").value;
+
+  if (!q) return;
+
+  const params = new URLSearchParams({ q, src, limit, showAll: false });
+  location.hash = params.toString();
+});
 
 // React to hash changes
 window.addEventListener("hashchange", runSearchIfNeeded);

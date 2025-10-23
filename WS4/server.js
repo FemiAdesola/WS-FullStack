@@ -1,8 +1,3 @@
-/**
- * server.js
- * Backend server with express JS that handles API routes and also serves static frontend files.
- */
-
 const path = require("path");
 const express = require("express");
 const axios = require("axios");
@@ -10,17 +5,23 @@ const axios = require("axios");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// =========================
+// MIDDLEWARE
+// =========================
+
 // Middleware to parse JSON and form data
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
-// Serve static files from /public
 app.use(express.static(path.join(__dirname, "public")));
 
-// Router for API endpoints
+// =========================
+// ROUTES
+// =========================
+
+// Basic API router
 const router = express.Router();
 
-// Basic time route
+// /api/time — returns current server time
 router.get("/time", (req, res) => {
   res.json({ now: new Date().toISOString() });
 });
@@ -30,70 +31,65 @@ router.get("/hello/:name", (req, res) => {
   res.send("Hello " + req.params.name);
 });
 
-// /api is using as prefix for all API routes
-app.use("/api", router);
 
-// This is servering as main page
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
-});
-
-// This handling form POST from index.html (redirect to hash-based route)
-app.post("/search", (req, res) => {
-  const term = (req.body.q || "").trim();
-  const src = (req.body.src || "demo").toLowerCase();
-//   console.log("Search:", { term, src });
-  res.redirect(
-    "/#q=" + encodeURIComponent(term) + "&src=" + encodeURIComponent(src)
-  );
-});
-
-// API endpoint to fetch search results with using axios
-app.get("/api/search", async (req, res) => {
+// /api/search — supports both GitHub and DummyJSON search
+router.get("/search", async (req, res) => {
   const q = (req.query.q || "phone").trim();
   const src = (req.query.src || "demo").toLowerCase();
+  const limit = parseInt(req.query.limit) || 6;
+  const showAll = req.query.showAll === "true";
 
   try {
-    // GitHub Search
+    // =========================
+    // GitHub Repository Search
+    // =========================
     if (src === "github") {
-      const { data } = await axios.get(
-        "https://api.github.com/search/repositories",
-        {
-          params: { q },
-          headers: { Accept: "application/vnd.github+json" },
-          timeout: 6000,
-        }
-      );
+      const { data } = await axios.get("https://api.github.com/search/repositories", {
+        params: { q, per_page: showAll ? 50 : limit },
+        headers: { Accept: "application/vnd.github+json" },
+        timeout: 6000,
+      });
 
-      const items = (data.items || []).slice(0, 5).map((r) => ({
+      const items = (data.items || []).slice(0, showAll ? 50 : limit).map((r) => ({
         name: r.full_name,
         stars: r.stargazers_count,
         url: r.html_url,
-        description: r.description || "",
+        description: r.description || "No description provided.",
       }));
 
       return res.json({
         source: "github",
         total: data.total_count,
-        top5: items,
+        items,
+        limit,
+        showAll,
       });
     }
 
-    // DemoJSON Product Search (default)
-    const { data } = await axios.get("https://dummyjson.com/products/search", {
-      params: { q, limit: 5 },
+    // =========================
+    // DummyJSON Product Search
+    // =========================
+    const { data } = await axios.get("https://dummyjson.com/products/search", { // DemoJSON Product Search (default)
+      params: { q },
       timeout: 6000,
     });
 
-    const items = (data.products || []).map((p) => ({
-      title: p.title,
-      price: p.price,
-      brand: p.brand,
-      rating: p.rating,
-      thumbnail: p.thumbnail,
-    }));
+    const products = data.products || [];
+    const items = showAll ? products : products.slice(0, limit);
 
-    return res.json({ source: "demo", total: data.total, top5: items });
+    return res.json({
+      source: "demo",
+      total: data.total,
+      items: items.map((p) => ({
+        title: p.title,
+        price: p.price,
+        brand: p.brand,
+        rating: p.rating,
+        thumbnail: p.thumbnail,
+      })),
+      limit,
+      showAll,
+    });
   } catch (e) {
     const status = e.response?.status || 502;
     const msg = e.response?.data?.message || e.message || "Upstream error";
@@ -104,7 +100,18 @@ app.get("/api/search", async (req, res) => {
   }
 });
 
-// Start server
+app.use("/api", router); // /api is using as prefix for all API routes
+
+// =========================
+// FRONTEND
+// =========================
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html")); // This is servering as main page
+});
+
+// =========================
+// SERVER START
+// =========================
 app.listen(PORT, () =>
   console.log(`✅ Server running at http://localhost:${PORT}`)
 );

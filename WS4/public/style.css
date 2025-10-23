@@ -5,7 +5,6 @@ body {
   padding: 0;
   background: #f8f9fb;
   color: #333;
-  line-height: 1.6;
 }
 
 /* Header */
@@ -42,7 +41,7 @@ main {
   gap: 1rem;
 }
 
-input[type="text"] {
+input[type="text"], select{
   padding: 0.75rem;
   font-size: 1rem;
   border: 1px solid #ccc;
@@ -54,13 +53,14 @@ input[type="text"] {
   display: flex;
   gap: 1rem;
   align-items: center;
+  flex-wrap: wrap;
 }
 
-.btn {
+.btn, .btn-secondary {
   background: #0d6efd;
   color: white;
   border: none;
-  padding: 0.75rem;
+  padding: 0.75rem 1.2rem;
   border-radius: 8px;
   font-size: 1rem;
   cursor: pointer;
@@ -71,14 +71,16 @@ input[type="text"] {
   background: #0b5ed7;
 }
 
+.btn-secondary {
+  background: #6c757d;
+}
+
+.btn-secondary:hover {
+  background: #5a6268;
+}
 /* Results */
 .results {
   margin-top: 2rem;
-}
-
-.placeholder {
-  text-align: center;
-  color: #666;
 }
 
 /* Cards Grid */
@@ -117,22 +119,9 @@ input[type="text"] {
   color: #0d6efd;
 }
 
-.card p {
-  margin: 0.3rem 0;
-}
-
-.card small {
-  color: #777;
-}
-
-/* GitHub Card */
-.card a {
-  text-decoration: none;
-  color: #0d6efd;
-}
-
-.card a:hover {
-  text-decoration: underline;
+.center {
+  text-align: center;
+  margin-top: 1rem;
 }
 
 /* Footer */
